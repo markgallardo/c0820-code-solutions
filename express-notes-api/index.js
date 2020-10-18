@@ -18,28 +18,15 @@ app.get('/api/notes/:id', (req, res) => {
   const getId = notes.findIndex(n => n.id === noteId);
   // eslint-disable-next-line no-console
   console.log(getId);
-  // eslint-disable-next-line eqeqeq
-  if (getId != noteId) {
+  if (noteId <= 0) {
+    res.status(400).json({ error: 'id must be a positive integer' });
+  } else if (dataJson.notes[noteId] === undefined) {
+    res.status(404).json({ error: `'cannot find note with id ${noteId}'` });
+  }
+  if (getId !== noteId) {
     res.status(200).json(notes[getId]);
-  } else if (noteId < 0 || !Number.isInteger(noteId)) {
-    res.status(400).json('{"error": "id must be a positive integer"}');
-  } else if (typeof dataJson.notes[noteId] === 'undefined') {
-    res.status(404).json(`{"error": "cannot find note with id ${noteId}"}`);
   }
 });
-//   if (noteId < 1 || !noteId || Number.isInteger(noteId)) {
-//     res.status(400).json({ error: 'input must be positive number' });
-//     return;
-//   }
-//   for (let i = 0; i < notes.length; i++) {
-//     // eslint-disable-next-line eqeqeq
-//     if (noteId == notes[i].id) {
-//       res.status(200).json(notes[i]);
-//       return;
-//     }
-//   }
-//   res.status(404).json({ error: 'not found' });
-// });
 
 app.post('/api/notes', (req, res) => {
   if (!req.body.content) {
@@ -62,29 +49,39 @@ app.post('/api/notes', (req, res) => {
 
 app.delete('/api/notes/:id', (req, res, next) => {
   const noteId = parseInt(req.params.id, 10);
-  if (!Number.isInteger(noteId) || noteId <= 0) {
+  if (noteId <= 0) {
     return res.status(400).json({
       error: 'id must be positive integer'
     });
   } else if (dataJson.notes[noteId] === undefined) {
     res.status(404).json({ error: `cannot find note with id ${noteId} ` });
   }
+  if (dataJson.notes[noteId] !== undefined) {
+    delete dataJson.notes[noteId];
 
+    const dataStr = JSON.stringify(dataJson, null, 2);
+    fs.writeFile('data.json', dataStr, 'utf8', err => {
+      if (err) {
+        res.staus(500).json({ error: 'An unexpected error occured' });
+      } else {
+        res.sendStatus(204);
+      }
+    });
+  }
+  res.status(404).json({ error: `cannot find the note with id ${noteId}` });
 });
 
 app.put('/api/notes/:id', (req, res, next) => {
   const noteId = parseInt(req.params.id, 10);
 
-  if (Object.keys(req.body).length === 0) {
+  if (Object.values(req.body).length === 0) {
     res.status(400).json({ error: 'content is a required field' });
     return;
   }
-
-  if (noteId <= 0 || !Number.isInteger(noteId)) {
+  if (noteId <= 0) {
     res.status(400).json({ error: 'id must be a positive integer' });
     return;
-  }
-  if (dataJson.notes[noteId] === undefined) {
+  } else if (dataJson.notes[noteId] === undefined) {
     res.status(404).json({ error: `can't find note with id ${noteId}` });
     return;
   }
@@ -92,14 +89,13 @@ app.put('/api/notes/:id', (req, res, next) => {
   dataJson.notes[noteId].content = req.body.content;
 
   const dataStr = JSON.stringify(dataJson, null, 2);
-  fs.writeFile('data.json', dataStr, err => {
+  fs.writeFile('data.json', dataStr, 'utf8', err => {
     if (err) {
       console.error(err);
-      res.staus(500).json({ error: 'An unexpected error occured' });
+      res.status(500).json({ error: 'An unexpected error occured' });
     }
-    res.staus(200).json(req.body);
+    res.status(200).json(req.body);
   });
-
 });
 app.listen(3000, () => {
   // eslint-disable-next-line no-console

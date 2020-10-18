@@ -1,5 +1,5 @@
 {
-  "nextId": 6,
+  "nextId": 7,
   "notes": {
     "1": {
       "id": 1,
@@ -17,9 +17,9 @@
       "id": 4,
       "content": "A closure is formed when a function retains access to variables in its lexical scope."
     },
-    "5": {
-      "content": "this is hard",
-      "id": 5
+    "6": {
+      "content": "this is so so hard",
+      "id": 6
     }
   }
 }
