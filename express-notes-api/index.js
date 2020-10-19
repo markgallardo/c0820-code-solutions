@@ -13,18 +13,14 @@ app.get('/api/notes', (req, res) => {
 
 app.get('/api/notes/:id', (req, res) => {
   const noteId = parseInt(req.params.id, 10);
-  // eslint-disable-next-line no-console
-  console.log(notes);
   const getId = notes.findIndex(n => n.id === noteId);
-  // eslint-disable-next-line no-console
-  console.log(getId);
   if (noteId <= 0) {
     res.status(400).json({ error: 'id must be a positive integer' });
   } else if (dataJson.notes[noteId] === undefined) {
     res.status(404).json({ error: `'cannot find note with id ${noteId}'` });
   }
   if (getId !== noteId) {
-    res.status(200).json(notes[getId]);
+    return res.status(200).json(notes[getId]);
   }
 });
 
@@ -42,8 +38,9 @@ app.post('/api/notes', (req, res) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: 'An unexpected error occured.' });
+    } else {
+      res.status(201).json(req.body);
     }
-    res.status(201).json(req.body);
   });
 });
 
@@ -93,8 +90,9 @@ app.put('/api/notes/:id', (req, res, next) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: 'An unexpected error occured' });
+    } else {
+      res.status(200).json(req.body);
     }
-    res.status(200).json(req.body);
   });
 });
 app.listen(3000, () => {
