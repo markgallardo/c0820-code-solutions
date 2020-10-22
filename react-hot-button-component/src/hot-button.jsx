@@ -17,8 +17,6 @@ export default class HotButton extends React.Component {
 
   render() {
     const counter = this.state.clickCounter;
-    // eslint-disable-next-line no-console
-    console.log(counter);
     let color = '';
 
     if (counter < 3) {
@@ -42,8 +40,6 @@ export default class HotButton extends React.Component {
       color = 'white';
 
     }
-    // eslint-disable-next-line no-console
-    console.log(color);
     return (
       <button className={color} onClick={this.handleCLick}> {color}</button>
     );
