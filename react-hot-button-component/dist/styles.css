@@ -1,0 +1,35 @@
+button {
+  width: 13rem;
+  height: 8rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  border-radius: 15%;
+}
+
+.darkpurple {
+  background-color: purple;
+}
+
+.lightpurple {
+  background-color: rebeccapurple;
+}
+
+.red {
+  background-color: red;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.white {
+  background-color: whitesmoke;
+}
+
+.blue {
+  background-color: blue;
+}
