@@ -11,6 +11,7 @@ class StopWatch extends React.Component {
     this.count = this.count.bind(this);
     this.countStart = this.countStart.bind(this);
     this.countPause = this.countPause.bind(this);
+    this.countReset = this.countReset.bind(this);
   }
 
   count() {
@@ -27,14 +28,22 @@ class StopWatch extends React.Component {
   countPause() {
     this.setState({ isRunning: !this.state.isRunning });
     clearInterval(this.timer);
+
+  }
+
+  countReset() {
+    if (!this.state.isRunning) {
+      this.setState({ time: 0 });
+    }
   }
 
   render() {
     const icons = this.state.isRunning ? 'fas fa-pause' : 'fas fa-play';
     const controls = this.state.isRunning ? this.countPause : this.countStart;
+
     return (
       <div>
-        <div className={'stopwatch'}>
+        <div className={'stopwatch'} onClick={this.countReset}>
           <p className={'text'}>{this.state.time}</p>
         </div>
         <div className={'button'}>
