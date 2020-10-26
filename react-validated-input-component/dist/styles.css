@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.fa-times,
+.fa-check {
+  color: red;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.fa-check {
+  color: greenyellow;
+}
+
+.textRed {
+  color: red;
+}
