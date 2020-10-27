@@ -1,2 +1,3 @@
 delete  from "address"
-where "addressId" = 161;
+where "addressId" = 161
+returning *;

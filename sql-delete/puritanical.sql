@@ -1,2 +1,3 @@
-delete from 'films'
-where "rating" != 'G';
+delete from "films"
+where "rating" != 'G'
+returning *;

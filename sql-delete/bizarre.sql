@@ -1,2 +1,3 @@
 delete from "cities"
-where "name" = 'Pyongyang';
+where "name" = 'Pyongyang'
+returning *;
