@@ -1,0 +1,39 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "task": "Learn to code.",
+      "isCompleted": true
+    },
+    {
+      "id": 3,
+      "task": "Build projects.",
+      "isCompleted": true
+    },
+    {
+      "id": 7,
+      "task": "Get a job.",
+      "isCompleted": true
+    },
+    {
+      "task": "learn new language",
+      "isCompleted": true,
+      "id": 8
+    },
+    {
+      "task": "walk the dog",
+      "isCompleted": true,
+      "id": 10
+    },
+    {
+      "task": "feed the dog",
+      "isCompleted": true,
+      "id": 11
+    },
+    {
+      "task": "teach the dog some tricks",
+      "isCompleted": true,
+      "id": 12
+    }
+  ]
+}
