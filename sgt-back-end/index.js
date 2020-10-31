@@ -35,7 +35,7 @@ app.post('/api/grades', (req, res) => {
     `;
     const params = [name, course, grade];
     db.query(insert, params)
-      .then(result => res.status(201).json(result.rows))
+      .then(result => res.status(201).json(result.rows[0]))
       .catch(err => {
         res.status(500).json({ error: 'An unexpected error occured.' });
         console.error(err);
@@ -48,6 +48,7 @@ app.put('/api/grades/:gradeId', (req, res) => {
   const gradeId = parseInt(req.params.gradeId, 10);
   if (!gradeId || gradeId <= 0) {
     res.status(400).json({ error: 'The grade id must be a positive integer' });
+    return;
   }
   const update = `
   update"grades"
